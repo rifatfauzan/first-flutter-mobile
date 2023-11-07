@@ -13,10 +13,10 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Shopping List',
+          "Mon's Store",
           style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.indigo,
+        backgroundColor: Colors.lightBlue,
         elevation: 4, // Control the shadow depth
         shadowColor: Colors.black, // Color of the shadow
       ),
