@@ -174,8 +174,8 @@
     - Buat parameter baru
     ```
     final List<ShopItem> items = [
-        ShopItem("Lihat Item", Icons.checklist, Colors.lightGreen),
-        ShopItem("Tambah Item", Icons.add_shopping_cart, Colors.lightBlue),
+        ShopItem("Lihat Item", Icons.checklist, Colors.lightBlue),
+        ShopItem("Tambah Item", Icons.add_shopping_cart, Colors.lightGreen),
         ShopItem("Logout", Icons.logout, Colors.redAccent),
     ];
     ```
