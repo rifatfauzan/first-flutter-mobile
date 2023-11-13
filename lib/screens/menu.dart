@@ -1,11 +1,13 @@
+import 'package:first_project/widgets/shop_card.dart';
+import 'package:first_project/widgets/left_drawer.dart';
 import 'package:flutter/material.dart';
 
 class MyHomePage extends StatelessWidget {
   MyHomePage({Key? key}) : super(key: key);
 
   final List<ShopItem> items = [
-    ShopItem("Lihat Produk", Icons.checklist, Colors.lightBlue),
-    ShopItem("Tambah Produk", Icons.add_shopping_cart, Colors.lightGreen),
+    ShopItem("Lihat Item", Icons.checklist, Colors.lightBlue),
+    ShopItem("Tambah Item", Icons.add_shopping_cart, Colors.lightGreen),
     ShopItem("Logout", Icons.logout, Colors.redAccent),
   ];
   @override
@@ -20,6 +22,7 @@ class MyHomePage extends StatelessWidget {
         elevation: 4, // Control the shadow depth
         shadowColor: Colors.black, // Color of the shadow
       ),
+      drawer: const LeftDrawer(),
       body: SingleChildScrollView(
         // Widget wrapper yang dapat discroll
         child: Padding(
@@ -54,59 +57,6 @@ class MyHomePage extends StatelessWidget {
                 }).toList(),
               ),
             ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class ShopItem {
-  final String name;
-  final IconData icon;
-  final Color color;
-
-  ShopItem(this.name, this.icon, this.color);
-}
-
-class ShopCard extends StatelessWidget {
-  final ShopItem item;
-
-  const ShopCard(this.item, {super.key}); // Constructor
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: item.color,
-      child: InkWell(
-        // Area responsive terhadap sentuhan
-        onTap: () {
-          // Memunculkan SnackBar ketika diklik
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(SnackBar(
-                content: Text("Kamu telah menekan tombol ${item.name}!")));
-        },
-        child: Container(
-          // Container untuk menyimpan Icon dan Text
-          padding: const EdgeInsets.all(8),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  item.icon,
-                  color: Colors.white,
-                  size: 30.0,
-                ),
-                const Padding(padding: EdgeInsets.all(3)),
-                Text(
-                  item.name,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(color: Colors.white),
-                ),
-              ],
-            ),
           ),
         ),
       ),
