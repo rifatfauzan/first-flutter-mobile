@@ -56,7 +56,7 @@ class ShopCard extends StatelessWidget {
                 );
               } else if (item.name == "Logout") {
                 // Make sure to await the logout call
-                final response = await request.logout("http://127.0.0.1:8000/logout/");
+                final response = await request.logout("http://127.0.0.1:8000/auth/logout/");
                 String message = response["message"];
                 if (response['status']) {
                   if (context.mounted) {
