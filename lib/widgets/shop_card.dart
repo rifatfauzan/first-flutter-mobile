@@ -21,51 +21,53 @@ class ShopCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
+    
     return Provider(
       create: (_) {
           CookieRequest request = CookieRequest();
           return request;
       },
       child: Material(
-          color: Colors.indigo,
+          color: item.color,
           child: InkWell(
             // Area responsive terhadap sentuhan
             onTap: () async {
-              // Memunculkan SnackBar ketika diklik
+              // Show the SnackBar immediately
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(SnackBar(
-                    content: Text("Kamu telah menekan tombol ${item.name}!")));
-              // Navigate ke route yang sesuai (tergantung jenis tombol)
+                  content: Text("Kamu telah menekan tombol ${item.name}!"),
+                ));
+              
+              // Check the button pressed and act accordingly
               if (item.name == "Tambah Item") {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ShopFormPage(),
-                    ));
-              }
-              else if (item.name == "Lihat Item") {
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ShopFormPage(),
+                  ),
+                );
+              } else if (item.name == "Lihat Item") {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ItemPage()
-                    ));
-              }
-              else if (item.name == "Logout") {
-                final response = await request.logout(
-                    // Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
-                    "http://127.0.0.1:8000/auth/logout/");
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ItemPage(),
+                  ),
+                );
+              } else if (item.name == "Logout") {
+                // Make sure to await the logout call
+                final response = await request.logout("http://127.0.0.1:8000/logout/");
                 String message = response["message"];
                 if (response['status']) {
                   if (context.mounted) {
                     String uname = response["username"];
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text("$message Sampai jumpa, $uname."),
-                    ));
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(builder: (context) => const LoginPage()),
                     );
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text("$message Sampai jumpa, $uname."),
+                    ));
                   }
                 } else {
                   if (context.mounted) {
